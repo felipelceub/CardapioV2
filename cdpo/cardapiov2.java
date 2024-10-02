@@ -11,7 +11,12 @@ public class Cardapio{
 	static List<Boolean> listaAtivoProdutos = new ArrayList<>();
 	static List<Double> listaPrecoProdutos = new ArrayList<>();
 	
-	static List<String> listaNomesClientes = new ArrayList<>();
+	static List<String> listaNomeClientes = new ArrayList<>();
+	static List<String> listaSexoClientes = new ArrayList<>();
+	static List<String> listaEmailClientes = new ArrayList<>();
+	static List<String> listaNascimentoClientes = new ArrayList<>();
+	static List<String> listaTelefoneClientes = new ArrayList<>();
+	static List<String> listaEnderecoClientes = new ArrayList<>();
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -28,7 +33,6 @@ public class Cardapio{
 		}*/
 		cadastrarCliente(sc);
 		
-		System.out.println(listaNomesClientes.get(0));
 		
 		sc.close();
 		
@@ -198,10 +202,10 @@ public class Cardapio{
 	
 	
 	public static void cadastrarCliente(Scanner sc) {
-		//sc.nextLine();
+		sc.nextLine();
 		
-		String nome;
-		String endereco;
+		String nome, sexo, telefone, email, dataNasc;
+		String endereco, enderecoA = null, enderecoB = null;
 		byte tamanhoDasVariaveis;
 		
 		do {
@@ -209,6 +213,17 @@ public class Cardapio{
 			nome = sc.nextLine();
 			
 		} while(nome.length() < 6 || nome.length() > 60); 
+		
+		listaNomeClientes.add(nome);
+		
+		do {
+			System.out.println("Sexo (F para feminino | M para masculino): ");
+				sexo = sc.nextLine();
+					sexo.toUpperCase();
+					
+		} while(sexo != "F" || sexo != "M");
+		
+		listaSexoClientes.add(sexo);
 		
 		do {
 			System.out.println("Logradouro: ");
@@ -222,9 +237,10 @@ public class Cardapio{
 			tamanhoDasVariaveis = (byte) numero.length();
 			
 			if(numero != null) {
-				//endereco = endereco + ", ";
-				endereco.concat(numero);
+				enderecoA = endereco.concat(", " + numero + ", ");
+				
 			}
+			
 			
 		} while(tamanhoDasVariaveis > 4);
 		
@@ -234,22 +250,79 @@ public class Cardapio{
 			tamanhoDasVariaveis = (byte) complemento.length();
 			
 			if(complemento != null) {
-				//endereco = endereco + ", ";
-				endereco.concat(complemento);
+				enderecoB = enderecoA.concat(complemento + ", ");
+
 			}
 		
 		} while(tamanhoDasVariaveis > 60);
+		
+		enderecoA = null;
 		
 		do {
 			System.out.println("Bairro: ");
 				String bairro = sc.nextLine();
 			tamanhoDasVariaveis = (byte) bairro.length();
-			//endereco = endereco + ", ";
-			endereco.concat(bairro);
+			enderecoA = enderecoB.concat(bairro + ", ");
 		
 		} while(tamanhoDasVariaveis > 60 || tamanhoDasVariaveis <= 0);
 		
-		listaNomesClientes.add(endereco);
+		enderecoB = null;
+		
+		do {
+			System.out.println("Cidade: ");
+				String cidade = sc.nextLine();
+			tamanhoDasVariaveis = (byte) cidade.length();
+			enderecoB = enderecoA.concat(cidade + ", ");
+		
+		} while(tamanhoDasVariaveis > 60 || tamanhoDasVariaveis <= 0);
+		
+		enderecoA = null;
+		
+		do {
+			System.out.println("CEP: ");
+				String cep = sc.nextLine();
+			tamanhoDasVariaveis = (byte) cep.length();
+			enderecoA = enderecoB.concat(cep + ", ");
+		
+		} while(tamanhoDasVariaveis != 8);
+		
+		enderecoB = null;
+		
+		do {
+			System.out.println("Estado: ");
+				String estado = sc.nextLine();
+			tamanhoDasVariaveis = (byte) estado.length();
+			enderecoB = enderecoA.concat(estado);
+		
+		} while(tamanhoDasVariaveis != 2);
+		
+		
+		listaEnderecoClientes.add(enderecoB);
+		
+		do {
+			System.out.println("telefone: ");
+				telefone = sc.nextLine();
+			tamanhoDasVariaveis = (byte) telefone.length();
+		
+		} while(tamanhoDasVariaveis != 11);
+		
+		listaTelefoneClientes.add(telefone);
+		
+		do {
+			System.out.println("Email: ");
+				email = sc.nextLine();
+			tamanhoDasVariaveis = (byte) email.length();
+		if(email.length() == 0) {
+			listaEmailClientes.add(null);
+		}
+		} while(tamanhoDasVariaveis > 80);
+		
+		do {
+			System.out.println("Data de nascimento (dd/MM/yyyy): ");
+			dataNasc = sc.nextLine();
+		}while(dataNasc.length() != 10);
+		
+		listaNascimentoClientes.add(dataNasc);
 		
 	}
 	
